@@ -1,28 +1,28 @@
 import React,{Component} from 'react';
 import { StyleSheet, View, Text, ScrollView,KeyboardAvoidingView, TouchableOpacity, TextInput} from 'react-native';
-import LoginForm from './LoginForm';
+import RegisterForm from '../components/RegisterForm';
 
-export default class Login extends Component {
+export default class Register extends Component {
   render(){
     return (
       <View style = {styles.container}>
         <View style={styles.headBackgorund}/>
-        <KeyboardAvoidingView behavior = {"position"}>
-        <View>
+        <KeyboardAvoidingView>
+        {/* <View>
           <Text style={styles.logo}>Social Media Analyzer</Text>
           <Text style={styles.logoDescription}>Instagram</Text>
-        </View>
+        </View> */}
         <ScrollView>
           <View style={styles.loginArea}>
-            <Text style={styles.loginAreaTitle}>Giriş Yap</Text>
-            <Text style={styles.loginAreaDescription}>Hesabınız yoksa kayıt olabilirsiniz.</Text>
-            <LoginForm/>
+            <Text style={styles.loginAreaTitle}>Kayıt ol</Text>
+            <Text style={styles.loginAreaDescription}>Aşağıdaki bilgileri doldurarak kayıt olabilirsiniz.</Text>
+            <RegisterForm navigation={this.props.navigation}/>
           </View>
         </ScrollView>
         <View style = {styles.signUpArea}>
-            <Text style = {styles.signUpDescription}>Hesabınız yok mu ?</Text>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("Register")}>
-                <Text style = {styles.signUpText}>Kayıt ol</Text>
+            <Text style = {styles.signUpDescription}>Hesabınız var mı ?</Text>
+            <TouchableOpacity onPress={ () => this.props.navigation.navigate("Home") }>
+                <Text style = {styles.signUpText}>Giriş Yap</Text>
             </TouchableOpacity>
         </View>
         </KeyboardAvoidingView>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
  container : {
    flex:1,
    backgroundColor:'#F5FCFF',
-   paddingVertical:90
+   paddingVertical:30
  },
  headBackgorund : {
    position:'absolute',
