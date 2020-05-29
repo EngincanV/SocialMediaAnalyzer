@@ -1,6 +1,8 @@
 import React, {useEffect} from "react";
 import { View, Text } from "react-native";
 
+import AnalysisComponent from "../components/AnalysisComponent";
+
 const PublicAccountAnalysis = (props) => {
     useEffect(() => {
         console.log(props);
@@ -8,7 +10,7 @@ const PublicAccountAnalysis = (props) => {
     
     return (
         <View>
-            <Text>Geçtiğin username: {props.route.params.username}</Text>
+            <AnalysisComponent username = {props.route.params.username}/>
         </View>
     )
 };
