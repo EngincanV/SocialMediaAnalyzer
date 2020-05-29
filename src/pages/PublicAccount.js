@@ -1,12 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-const MainPage = () => {
+const PublicAccountPage = () => {
     return (
         <View>
-            <Text>Uygulamanın ana sayfası olacak.</Text>
+            <Text>Girişsiz burası</Text>
         </View>
-    );
+    )
 }
 
-export default MainPage;
+export default PublicAccountPage;
