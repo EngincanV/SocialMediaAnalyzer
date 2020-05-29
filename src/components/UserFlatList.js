@@ -1,40 +1,54 @@
 import React,{Component} from 'react';
 import {StyleSheet, SafeAreaView, FlatList, View,Text,Image,TouchableOpacity,TextInput} from 'react-native';
-import axios from 'axios';
 
 export default class UserFlatList extends Component{
   state = {
     text : '',
-    username:'oguzhankaymakk',
-    password:'',
-    notToBeFollowedUser : []
+    loading:true,
+    notToBeFollowedUser : [],
+    notToBeFollowedAllUser : [],
   };
 
   componentDidMount(){
     this.getUsers();    
   }
+  
 
-  getUsers = async () =>{
-    const {data:{userInfo : {notToBeFollowedUser}}} = await axios.post('http://192.168.43.153:5001/NotToBeFollowed',{
-       'username':'oguzhankaymakk',
-       'password':''
-   });
-    
-    this.setState({
-      notToBeFollowedUser
-    })
-  };
+ getUsers = async () => {
+   this.setState({
+     loading:true
+   })
+   const username = this.props.username;
+    try {
+      let response = await fetch( `http://192.168.1.3:3000/userInfoByUsername/${username}`,{
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+      })
+      let json = await response.json();
+      this.setState({
+        notToBeFollowedUser:json.notToBeFollowed,
+        notToBeFollowedAllUser:json.notToBeFollowed,
+        loading:false
+      });
+    } 
+    catch (error) {
+      console.error(error);
+    }
+  }
   
   renderUserItem = ({item,index}) =>{
     return(
       <TouchableOpacity style = {[styles.itemContainer,{backgroundColor : index % 2 === 1 ? '#fafafa' : ''}]}>
         <Image 
           style = {styles.avatar}
-          source = {{uri:item.userImg}}
+          source = {{uri:item.profile_pic_url}}
         />
         <View style = {styles.textContainer}>
-          <Text style = {styles.name}>{item.username}</Text>
-          <Text style = {styles.nameSurname}>{item.nameSurname}</Text> 
+          <Text style = {styles.username}>{item.username}</Text>
+          <Text style = {styles.full_name}>{item.full_name}</Text> 
 
         </View>
       </TouchableOpacity>
@@ -42,13 +56,13 @@ export default class UserFlatList extends Component{
   }
 
   searchFilter = (text) =>{
-      const newData = data.filter(item =>{
-        const listItem = `${item.name.toLowerCase()} ${item.company.toLowerCase()}`;
+      const newData = this.state.notToBeFollowedAllUser.filter(item =>{
+        const listItem = `${item.username.toLowerCase()} ${item.full_name.toLowerCase()}`;
         return listItem.indexOf(text.toLowerCase()) >-1;
       });
 
       this.setState({
-        users : newData
+        notToBeFollowedUser : newData
       });
   };
   renderHeader = () =>{
@@ -74,7 +88,7 @@ export default class UserFlatList extends Component{
         <FlatList
           ListHeaderComponent = {this.renderHeader()}
           renderItem = {this.renderUserItem}
-          keyExtractor = {(item) => item.userID.toString()}
+          keyExtractor = {(item) => item.userId}
           data = {this.state.notToBeFollowedUser}
         />
     )
@@ -98,7 +112,7 @@ const styles = StyleSheet.create({
   textContainer : {
     justifyContent:'space-around'
   },
-  name:{
+  username:{
     fontSize:16
   },
   searchContainer : {
