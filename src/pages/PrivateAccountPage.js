@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
+import PrivateAccountCompanent from '../components/PrivateAccountCompanent'
+
 const PrivateAccountPage = () => {
     return (
         <View>
-            <Text>Giriş ile burası</Text>
+            <PrivateAccountCompanent/>
         </View>
     )
 }
