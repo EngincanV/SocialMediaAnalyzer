@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text } from "react-native";
+import PublicAccountComponent from '../components/PublicAccountComponent';
 
 const PublicAccountPage = () => {
     return (
         <View>
-            <Text>Girişsiz burası</Text>
+            <PublicAccountComponent/>
         </View>
     )
 }
