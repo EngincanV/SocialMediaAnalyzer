@@ -35,7 +35,7 @@ export default class App extends Component {
                   <Button
                     onPress={async () => { await AsyncStorage.clear(); this.setState({ isLoggedIn: false }); RootNavigation.navigate("Home") }}
                     title="Logout"
-                    color="blue"
+                    color="#428AF8"
                   />
                 ),
                 headerTitle: ""
