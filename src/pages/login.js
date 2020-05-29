@@ -17,7 +17,7 @@ export default class Login extends Component {
         "Lütfen bütün boş alanları doldurunuz!",
       );
     else {
-      fetch('http://192.168.1.3:3000/account/login', {
+      fetch('http://192.168.99.65:3000/account/login', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

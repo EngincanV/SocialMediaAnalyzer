@@ -11,7 +11,8 @@ import HomeScreen from './src/pages/HomeScreen'
 import Register from './src/pages/Register'
 import TabNavigationPage from "./src/helper/TabNavigator";
 import AsyncStorage from '@react-native-community/async-storage';
-
+import PublicAccountAnalysis from './src/pages/PublicAccountAnalysis';
+import PublicAccountNotToBeFollowed from "./src/pages/PublicAccountNotToBeFollowed";
 
 const Stack = createStackNavigator();
 
@@ -30,22 +31,27 @@ export default class App extends Component {
         <Stack.Navigator>
           {
             this.state.isLoggedIn ? (
-              <Stack.Screen name="MainPage" component={TabNavigationPage} options={{
-                headerRight: () => (
-                  <Button
-                    onPress={async () => { await AsyncStorage.clear(); this.setState({ isLoggedIn: false }); RootNavigation.navigate("Home") }}
-                    title="Logout"
-                    color="#428AF8"
-                  />
-                ),
-                headerTitle: ""
-              }} />
-
+              <React.Fragment>
+                <Stack.Screen name="MainPage" options={{
+                  headerRight: () => (
+                    <Button
+                      onPress={async () => { await AsyncStorage.clear(); this.setState({ isLoggedIn: false }); RootNavigation.navigate("Home") }}
+                      title="Logout"
+                      color="#428AF8"
+                    />
+                  ),
+                  headerTitle: ""
+                }} >
+                  {props => <TabNavigationPage {...props} />}
+                </Stack.Screen>
+                <Stack.Screen name="PublicAccountAnalysis" component={PublicAccountAnalysis} options={{ headerShown: false }} />
+                <Stack.Screen name="PublicAccountNotToBeFollowed" component={PublicAccountNotToBeFollowed} options={{ headerShown: false }}/>
+              </React.Fragment>
             ) : (
                 <React.Fragment>
                   <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
                   <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
-                  <Stack.Screen name="MainPage" component={TabNavigationPage} options={{
+                  <Stack.Screen name="MainPage" options={{
                     headerRight: () => (
                       <Button
                         onPress={async () => { await AsyncStorage.clear(); this.setState({ isLoggedIn: false }); RootNavigation.navigate("Home") }}
@@ -53,8 +59,12 @@ export default class App extends Component {
                         color="blue"
                       />
                     ),
-                    headerTitle: ""
-                  }} />
+                    headerTitle: "",
+                  }} >
+                    {props => <TabNavigationPage {...props} />}
+                  </Stack.Screen>
+                  <Stack.Screen name="PublicAccountAnalysis" component={PublicAccountAnalysis} options={{ headerShown: false }}/>
+                  <Stack.Screen name="PublicAccountNotToBeFollowed" component={PublicAccountNotToBeFollowed} options={{ headerShown: false }}/>
                 </React.Fragment>
               )}
         </Stack.Navigator>

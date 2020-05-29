@@ -1,16 +1,31 @@
 import React, {Component} from 'react';
 import {StyleSheet,View,Text,TextInput,TouchableOpacity,Dimensions,Image,Alert} from 'react-native';
-import { createStackNavigator } from "@react-navigation/stack";
+
+//navigate
+import { navigate } from '../helper/RootNavigation';
 
 const BLUE = "#428AF8";
 const LIGHT_GRAY = '#D3D3D3';
 const ScreenHeight = Dimensions.get("window").height;
 
-export default class PublicAccountComponent extends Component{
+export default class PublicAccountComponent extends Component {
     state = {
         isFocused:false,
         username:''
     };
+
+    handleAnalysisPress = () => {
+        const {username} = this.state;
+
+        if(username.trim() === ""){
+            Alert.alert("Lütfen Kullanıcı Adı Giriniz !");
+        }
+        
+        else {
+            navigate("PublicAccountAnalysis", {username: username});
+        }
+    }
+
     handleFocus = event =>{
         this.setState({isFocused:true});
         if(this.props.onFocus){
@@ -30,7 +45,7 @@ export default class PublicAccountComponent extends Component{
             Alert.alert("Lütfen Kullanıcı Adı Giriniz !");
         }
         else{
-
+            navigate("PublicAccountNotToBeFollowed", {username: username})
         }
 
     }
@@ -42,11 +57,7 @@ export default class PublicAccountComponent extends Component{
                 <Text style={styles.infoText}>İnstagram İşlemler</Text>
                 <View style={styles.form}>
                     <TextInput 
-                        onChange = {(username) => {
-                            this.setState({
-                                username
-                            })
-                        }}
+                        onChangeText={val => this.setState({username: val})}
                         placeholder = 'Kullanıcı Adı Giriniz'
                         placeholderTextColor = 'white'
                         style = {styles.usernameInput}
@@ -57,7 +68,7 @@ export default class PublicAccountComponent extends Component{
                     />
                 </View>
                 <View style={styles.buttons}>
-                    <TouchableOpacity style={styles.operationButton} >
+                    <TouchableOpacity style={styles.operationButton} onPress={this.handleAnalysisPress}>
                     <Image source={require('../../images/analiz.png')} style = {{height: 70, width: 145, resizeMode: 'center',}} />
                         <Text numberOfLines={1} style={styles.btnTitle}>Analizler</Text>
                     </TouchableOpacity>
