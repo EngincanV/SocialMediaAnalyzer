@@ -9,7 +9,7 @@ import * as RootNavigation from "./src/helper/RootNavigation";
 
 import HomeScreen from './src/pages/HomeScreen'
 import Register from './src/pages/Register'
-import MainPage from "./src/pages/MainPage";
+import TabNavigationPage from "./src/helper/TabNavigator";
 import AsyncStorage from '@react-native-community/async-storage';
 
 
@@ -30,7 +30,7 @@ export default class App extends Component {
         <Stack.Navigator>
           {
             this.state.isLoggedIn ? (
-              <Stack.Screen name="MainPage" component={MainPage} options={{
+              <Stack.Screen name="MainPage" component={TabNavigationPage} options={{
                 headerRight: () => (
                   <Button
                     onPress={async () => { await AsyncStorage.clear(); this.setState({ isLoggedIn: false }); RootNavigation.navigate("Home") }}
@@ -38,13 +38,14 @@ export default class App extends Component {
                     color="blue"
                   />
                 ),
+                headerTitle: ""
               }} />
 
             ) : (
                 <React.Fragment>
                   <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
                   <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
-                  <Stack.Screen name="MainPage" component={MainPage} options={{
+                  <Stack.Screen name="MainPage" component={TabNavigationPage} options={{
                     headerRight: () => (
                       <Button
                         onPress={async () => { await AsyncStorage.clear(); this.setState({ isLoggedIn: false }); RootNavigation.navigate("Home") }}
@@ -52,6 +53,7 @@ export default class App extends Component {
                         color="blue"
                       />
                     ),
+                    headerTitle: ""
                   }} />
                 </React.Fragment>
               )}
