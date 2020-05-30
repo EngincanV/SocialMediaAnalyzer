@@ -11,11 +11,11 @@ export default class PrivateAnalysisComponent extends Component {
     state = {
         bio: "",
         followers_count: 0,
-        followings_count: 21,
+        followings_count: 0,
         full_name: "",
         post_count: 0,
-        profile_pic_url: ""
-
+        profile_pic_url: "",
+        loading: true
     }
 
     componentDidMount() {
@@ -34,7 +34,7 @@ export default class PrivateAnalysisComponent extends Component {
                 body: JSON.stringify({
                     username,
                     password,
-                  })
+                })
             });
             let info = await response.json();
             this.setState({
@@ -43,7 +43,8 @@ export default class PrivateAnalysisComponent extends Component {
                 followings_count: info.edge_follow.count,
                 full_name: info.full_name,
                 post_count: info.edge_owner_to_timeline_media.count,
-                profile_pic_url: info.profile_pic_url
+                profile_pic_url: info.profile_pic_url,
+                loading: false
             })
         }
         catch (error) {
@@ -53,7 +54,7 @@ export default class PrivateAnalysisComponent extends Component {
     render() {
         const { bio, followers_count, followings_count, full_name, post_count, profile_pic_url } = this.state;
         return (
-            <View style={styles.container}>
+            this.state.loading ? <Text style={{ textAlign: "center", margin: "auto" }}>Loading</Text> : <View style={styles.container}>
                 <View style={styles.header}></View>
                 <Image style={styles.avatar} source={{ uri: profile_pic_url.toString() }} />
                 <View style={styles.body}>
