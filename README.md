@@ -56,3 +56,13 @@ react-native run-ios #for IOS
 [contributors-shield]: https://img.shields.io/badge/contributors-2-orange.svg?style=flat-square
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 [license-url]: https://choosealicense.com/licenses/mit
+
+## Screenshots
+
+![video1](https://user-images.githubusercontent.com/36153454/83326578-d36d7880-a27d-11ea-8fa3-7f2529f1f9e2.gif)
+
+![video2](https://user-images.githubusercontent.com/36153454/83326585-e54f1b80-a27d-11ea-8d63-809c5f20816d.gif)
+
+![video3](https://user-images.githubusercontent.com/36153454/83326591-f6982800-a27d-11ea-8740-b98806086156.gif)
+
+
