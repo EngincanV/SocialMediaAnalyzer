@@ -73,6 +73,7 @@ export default class PrivateAccountComponent extends Component {
                         onChangeText={val => this.setState({password: val})}
                         placeholder = 'Şifre Giriniz'
                         placeholderTextColor = 'white'
+                        secureTextEntry={true}
                         style = {styles.usernameInput}
                         underlineColorAndroid = { LIGHT_GRAY }
                         onFocus = {this.handleFocus}

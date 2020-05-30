@@ -23,25 +23,53 @@ export default class AnalysisComponent extends Component {
   }
 
   getInfo = async () => {
-    const username = this.props.username
+    const {username,password} = this.props
     try {
-      let response = await fetch(`http://192.168.99.65:3000/userInfoByUsername/${username}`, {
+      let response;
+      if(password !== undefined){
+        response = await fetch(`http://192.168.1.3:3000/userinfo`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          })
+        });
+
+        let info = await response.json();
+        this.setState({
+          bio: info.biography,
+          followers_count: info.edge_followed_by.count,
+          followings_count: info.edge_follow.count,
+          full_name: info.full_name,
+          post_count: info.edge_owner_to_timeline_media.count,
+          profile_pic_url: info.profile_pic_url,
+          loading: false
+        })
+      }
+      else{
+        response = await fetch(`http://192.168.1.3:3000/userInfoByUsername/${username}`, {
         method: 'GET',
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-      });
-      let info = await response.json();
-      this.setState({
-        bio: info.bio,
-        followers_count: info.followers_count,
-        followings_count: info.followings_count,
-        full_name: info.full_name,
-        post_count: info.post_count,
-        profile_pic_url: info.profile_pic_url,
-        loading: false
-      })
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+        });
+
+        let info = await response.json();
+        this.setState({
+          bio: info.bio,
+          followers_count: info.followers_count,
+          followings_count: info.followings_count,
+          full_name: info.full_name,
+          post_count: info.post_count,
+          profile_pic_url: info.profile_pic_url,
+          loading: false
+        }) 
+      } 
     }
     catch (error) {
       console.error(error);
@@ -52,7 +80,7 @@ export default class AnalysisComponent extends Component {
     return (
       this.state.loading ? <Text style={{ textAlign: "center", margin: "auto" }}>Loading...</Text> : <View style={styles.container}>
         <View style={styles.header}></View>
-        <Image style={styles.avatar} source={{ uri: profile_pic_url.toString() }} />
+        <Image style={styles.avatar} source={{ uri: profile_pic_url }} />
         <View style={styles.body}>
           <View style={styles.bodyContent}>
             <Text style={styles.name}>{full_name}</Text>
