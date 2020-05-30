@@ -41,7 +41,8 @@ export default class PrivateAccountComponent extends Component {
     };
 
     notTobeFollowedPress = () =>{
-        const {username} = this.state;
+        const {username, password} = this.state;
+        
         if(username.trim() === "" || password.trim() === ""){
             Alert.alert("Lütfen Kullanıcı Adınızı Ve Şifrenizi Eksiksiz Giriniz !");
         }

@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import { View, Text } from "react-native";
-import NotToBeFollowed from "../components/UserFlatList";
+
+import PrivateNotToBeFollowed from "../components/PrivateNotToBeFollowed";
 
 const PrivateAccountNotToBeFollowed = (props) => {
     useEffect(() => {
@@ -8,7 +9,7 @@ const PrivateAccountNotToBeFollowed = (props) => {
     }, []);
     return (
         <View>
-            <NotToBeFollowed username = {props.route.params.username}/>
+            <PrivateNotToBeFollowed username = {props.route.params.username} password={props.route.params.password}/>
         </View>
     )
 };
