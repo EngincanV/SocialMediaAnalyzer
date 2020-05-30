@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, SafeAreaView, FlatList, View, Text, Image, TouchableOpacity, TextInput } from 'react-native';
 
-export default class UserFlatList extends Component {
+export default class NotToBeFollowedComponent extends Component {
   state = {
     text: '',
     loading: true,
@@ -18,15 +18,35 @@ export default class UserFlatList extends Component {
     this.setState({
       loading: true
     })
-    const username = this.props.username;
+    const {username,password} = this.props;
+
+    
     try {
-      let response = await fetch(`http://192.168.99.65:3000/userInfoByUsername/${username}`, {
+      let response;
+      if(password !== undefined){
+        response = await fetch(`http://192.168.1.3:3000/notToBeFollowed`, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          })
+        })
+      }
+      else{
+        response = await fetch(`http://192.168.1.3:3000/userInfoByUsername/${username}`, {
         method: 'GET',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-      })
+      })   
+      }
+
+      
       let json = await response.json();
       this.setState({
         notToBeFollowedUser: json.notToBeFollowed,
