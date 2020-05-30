@@ -13,6 +13,8 @@ import TabNavigationPage from "./src/helper/TabNavigator";
 import AsyncStorage from '@react-native-community/async-storage';
 import PublicAccountAnalysis from './src/pages/PublicAccountAnalysis';
 import PublicAccountNotToBeFollowed from "./src/pages/PublicAccountNotToBeFollowed";
+import PrivateAccountAnalysis from "./src/pages/PrivateAccountAnalysis";
+import PrivateAccountNotToBeFollowed from "./src/pages/PrivateAccountNotToBeFollowed";
 
 const Stack = createStackNavigator();
 
@@ -45,7 +47,9 @@ export default class App extends Component {
                   {props => <TabNavigationPage {...props} />}
                 </Stack.Screen>
                 <Stack.Screen name="PublicAccountAnalysis" component={PublicAccountAnalysis} options={{ headerShown: false }} />
-                <Stack.Screen name="PublicAccountNotToBeFollowed" component={PublicAccountNotToBeFollowed} options={{ headerShown: false }}/>
+                <Stack.Screen name="PublicAccountNotToBeFollowed" component={PublicAccountNotToBeFollowed} options={{ headerShown: false }} />
+                <Stack.Screen name="PrivateAccountAnalysis" component={PrivateAccountAnalysis} options={{ headerShown: false }} />
+                <Stack.Screen name="PrivateAccountNotToBeFollowed" component={PrivateAccountNotToBeFollowed} options={{ headerShown: false }} />
               </React.Fragment>
             ) : (
                 <React.Fragment>
@@ -63,8 +67,10 @@ export default class App extends Component {
                   }} >
                     {props => <TabNavigationPage {...props} />}
                   </Stack.Screen>
-                  <Stack.Screen name="PublicAccountAnalysis" component={PublicAccountAnalysis} options={{ headerShown: false }}/>
-                  <Stack.Screen name="PublicAccountNotToBeFollowed" component={PublicAccountNotToBeFollowed} options={{ headerShown: false }}/>
+                  <Stack.Screen name="PublicAccountAnalysis" component={PublicAccountAnalysis} options={{ headerShown: false }} />
+                  <Stack.Screen name="PrivateAccountAnalysis" component={PrivateAccountAnalysis} options={{ headerShown: false }} />
+                  <Stack.Screen name="PublicAccountNotToBeFollowed" component={PublicAccountNotToBeFollowed} options={{ headerShown: false }} />
+                  <Stack.Screen name="PrivateAccountNotToBeFollowed" component={PrivateAccountNotToBeFollowed} options={{ headerShown: false }} />
                 </React.Fragment>
               )}
         </Stack.Navigator>

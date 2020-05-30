@@ -25,7 +25,7 @@ export default class AnalysisComponent extends Component {
   getInfo = async() =>{
     const username = this.props.username
     try{
-      let response = await fetch(`http://192.168.1.3:3000/userInfoByUsername/${username}`,{
+      let response = await fetch(`http://192.168.99.65:3000/userInfoByUsername/${username}`,{
         method:'GET',
         headers : {
            Accept: 'application/json',
