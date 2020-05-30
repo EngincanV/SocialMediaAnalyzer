@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { View, Text } from "react-native";
-import NotToBeFollowed from "../components/UserFlatList";
+import NotToBeFollowed from "../components/NotToBeFollowedComponent";
 
 const PublicAccountNotToBeFollowed = (props) => {
     useEffect(() => {
